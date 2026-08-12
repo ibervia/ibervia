@@ -206,23 +206,26 @@ const services = [
 </footer>
 
 <script>
-  // 获取邮箱链接元素
-  const emailLink = document.querySelector('.footer-email');
+  // 选取页面上所有链接以 "mailto:" 开头的元素
+  const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
 
-  if (emailLink) {
-    emailLink.addEventListener('click', function(event) {
-      // 获取邮箱地址
-      const emailAddress = 'Ibervia.pt@gmail.com';
+  // 遍历所有找到的邮箱链接，为它们绑定点击事件
+  emailLinks.forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      // 从您的 href 属性中提取邮箱地址 (去掉 "mailto:")
+      // 这样写的好处是，如果您以后换了邮箱，只需要改 HTML，不需要改这里的 JS
+      const hrefValue = this.getAttribute('href');
+      const emailAddress = hrefValue.replace('mailto:', '');
       
-      // 使用现代 Clipboard API 复制文本
+      // 使用 Clipboard API 复制文本
       navigator.clipboard.writeText(emailAddress).then(function() {
-        // 复制成功后的提示（您可以换成更美观的 UI 提示，这里用最简单的 alert 演示）
+        // 提示用户
         alert('Email address copied to clipboard! \n邮箱地址已复制！');
       }).catch(function(err) {
         console.error('Failed to copy email: ', err);
       });
     });
-  }
+  });
 </script>
 
 </body>
