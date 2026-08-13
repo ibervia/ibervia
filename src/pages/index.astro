@@ -120,10 +120,6 @@ const services = [
             <span class="section-label">DESTINATIONS</span>
             <h2>Two countries. One local partner.</h2>
           </div>
-            
-          <p>
-            Local expertise and seamless ground support across Portugal and Spain.
-          </p>
         </div>
 
         <div class="destination-grid">
@@ -154,7 +150,26 @@ const services = [
       <section class="contact" id="contact">
         <span class="section-label"> GET IN TOUCH</span>
         <h2>Let's plan your<br />next journey.</h2>
-        <a href="mailto:Ibervia.pt@gmail.com">Ibervia.pt@gmail.com →</a>
+  
+        <!-- 给邮箱加了一个专属 class，防止和下面二维码的链接样式冲突 -->
+        <a href="mailto:.com" class="contact-email">ibervia.pt@gmail.com →</a>
+
+        <!-- 新增的并排二维码区域 -->
+        <div class="contact-social">
+          <!-- WhatsApp (带跳转) -->
+          <a href="https://wa.me/351926078666" target="_blank" class="contact-social-item">
+            <img src="/whatsapp-qr.jpg" alt="WhatsApp QR Code" />
+            <span class="contact-social-platform">WhatsApp</span>
+            <span class="contact-social-service">English Service</span>
+          </a>
+
+          <!-- WeChat (使用 wechat-copy-btn class 来触发复制) -->
+          <div class="contact-social-item wechat-copy-btn" data-wechat="DesmondPT">
+            <img src="/wechat-qr.jpg" alt="WeChat QR Code" />
+            <span class="contact-social-platform">WeChat</span>
+            <span class="contact-social-service">中文服务</span>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -419,11 +434,6 @@ const services = [
     margin-bottom: 100px;
   }
 
-  .section-heading > p {
-    max-width: 300px;
-    line-height: 1.7;
-    color: rgba(255,255,255,.6);
-  }
 
   .service-grid {
     display: grid;
@@ -475,7 +485,7 @@ const services = [
   }
 
   .destinations .section-heading {
-    margin-bottom: 100px;
+    margin-bottom: 10px;
   }
 
   .destination-grid {
@@ -579,7 +589,7 @@ const services = [
   .contact h2 {
     font-size: clamp(55px, 7vw, 100px);
     line-height: .95;
-    margin: 35px 0 45px;
+    margin: 80px 0 80px; /* 把 35px 改成 80px，间距就拉开了 */
   }
 
   .contact a {
@@ -587,6 +597,8 @@ const services = [
     text-decoration: none;
     border-bottom: 1px solid rgba(255,255,255,.6);
     padding-bottom: 8px;
+    font-size: 24px; /* 👈 新增这行，调整数字可以改变大小 */
+    letter-spacing: 0.05em; /* 👈 可选：稍微增加一点字母间距，看起来更高级 */
   }
 
   /* =========================
@@ -596,15 +608,15 @@ const services = [
   footer {
     background: #f3f0e9;
     color: #17252b;
-    padding: 0 5vw;
+    padding: 0 10vw; /* 👈 把原来的 5vw 改为 10vw，和上面正文对齐 */
   }
 
   /* =========================
      LOGO STRIP
   ========================= */
 
-  .footer-logos {
-    padding: 30px 0;
+    .footer-logos {
+    padding: 40px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -613,7 +625,8 @@ const services = [
 
   .footer-logos img {
     display: block;
-    width: min(900px, 100%);
+    width: 100%;
+    max-width: 900px; /* 控制最大宽度，防止拉得太宽 */
     height: auto;
     mix-blend-mode: multiply;
   }
@@ -634,6 +647,16 @@ const services = [
   /* =========================
      BRAND
   ========================= */
+
+  /* 中间品牌区域整体往右移 */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* 👈 核心：在这里加上向右的偏移量。
+       数值越大，IBERVIA 整体就越往右走。您可以改成 50px、80px 等来调整 */
+    transform: translateX(100px); 
+  }
 
   .footer-brand-name {
     font-family: 'Playfair Display', serif;
@@ -775,8 +798,8 @@ const services = [
       letter-spacing: .15em;
     }
 
-    .hero-bottom span:last-child {
-      display: none;
+    .hero-bottom {
+      display: none; 
     }
 
     .intro {
@@ -851,6 +874,77 @@ const services = [
 
     .footer-brand-name {
       font-size: 32px;
+    }
+  }
+/* =========================
+     CONTACT 区域新增二维码样式
+  ========================= */
+  
+  /* 修复邮箱下划线样式，覆盖原来的 .contact a */
+  .contact a.contact-email {
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,.6);
+    padding-bottom: 8px;
+    display: inline-block;
+  }
+
+  /* 二维码外层容器 */
+  .contact-social {
+    display: flex;
+    justify-content: center;
+    gap: 80px; /* 两个二维码之间留出非常宽敞的距离 */
+    margin-top: 70px; /* 与上方的邮箱拉开距离 */
+  }
+
+  /* 消除 a 标签自带的下划线（覆盖原代码） */
+  .contact a.contact-social-item {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .contact-social-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  /* 控制 Contact 里的二维码变大 */
+  .contact-social-item img {
+    width: 140px; /* 比底部的 82px 大很多 */
+    height: 140px;
+    object-fit: contain;
+    border-radius: 8px; /* 加一点微小的圆角看起来更精致 */
+  }
+
+  .contact-social-platform {
+    font-weight: 600;
+    font-size: 15px;
+    color: white; /* 在深色背景上必须用白色文字 */
+    line-height: 1;
+    margin-top: 8px;
+  }
+
+  .contact-social-service {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7); /* 次要文字使用带透明度的白色 */
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  /* 移动端适配：稍微缩小一点，防止手机屏幕塞不下 */
+  @media (max-width: 800px) {
+    .contact-social {
+      gap: 35px; /* 手机端两个二维码靠近一点 */
+      margin-top: 50px;
+    }
+    
+    .contact-social-item img {
+      width: 115px; /* 手机端稍微缩小 */
+      height: 115px;
     }
   }
 </style>
