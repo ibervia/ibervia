@@ -35,6 +35,7 @@ const services = [
 
       <nav>
         <a href="#services">Services</a>
+        <a href="#fleet">Fleet</a>
         <a href="#about">About</a>
         <a href="#destinations">Destinations</a>
         <a href="#contact">Contact</a>
@@ -114,6 +115,64 @@ const services = [
         </div>
       </section>
 
+
+      <!-- ==========================================
+         新增：OUR FLEET 车队展示板块 (对应宣传册第 04 页)
+      ========================================== -->
+      <section class="fleet" id="fleet">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">OUR FLEET</span>
+            <h2>Our Fleet. Your Journey.</h2>
+          </div>
+          <p>
+            Professional fleet, licensed drivers, <br /> and seamless coordination.
+          </p>
+        </div>
+
+        <!-- 顶部全景车队合影大图 -->
+        <div class="fleet-banner">
+          <img src="/fleet-group.jpg" alt="Ibervia Fleet Lineup" />
+        </div>
+
+        <!-- 车型分类卡片网格 -->
+        <div class="fleet-grid">
+          <!-- 卡片 1: 行政轿车 -->
+          <div class="fleet-card">
+            <div class="fleet-card-img">
+              <img src="/fleet-executive.jpg" alt="Executive Vehicles" />
+            </div>
+            <div class="fleet-card-info">
+              <h3>Executive Vehicles</h3>
+              <p class="fleet-subtitle">Private Transfers · VIP Travel · Executive Transportation</p>
+            </div>
+          </div>
+
+          <!-- 卡片 2: 商务小巴 -->
+          <div class="fleet-card">
+            <div class="fleet-card-img">
+              <img src="/fleet-minibus.jpg" alt="Minibuses" />
+            </div>
+            <div class="fleet-card-info">
+              <h3>Minibuses</h3>
+              <p class="fleet-subtitle">Group Transfers · Corporate Travel</p>
+            </div>
+          </div>
+
+          <!-- 卡片 3: 大型团队用车 -->
+          <div class="fleet-card">
+            <div class="fleet-card-img">
+              <img src="/fleet-coach.jpg" alt="Group Vehicles" />
+            </div>
+            <div class="fleet-card-info">
+              <h3>Group Vehicles</h3>
+              <p class="fleet-subtitle">Large Groups · Tour Operators · MICE</p>
+              <p class="fleet-subtitle2">Available upon request</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section class="destinations" id="destinations">
         <div class="section-heading">
           <div>
@@ -151,19 +210,15 @@ const services = [
         <span class="section-label"> GET IN TOUCH</span>
         <h2>Let's plan your<br />next journey.</h2>
   
-        <!-- 给邮箱加了一个专属 class，防止和下面二维码的链接样式冲突 -->
-        <a href="mailto:.com" class="contact-email">info@ibervia.pt →</a>
+        <a href="mailto:info@ibervia.pt" class="contact-email">info@ibervia.pt →</a>
 
-        <!-- 新增的并排二维码区域 -->
         <div class="contact-social">
-          <!-- WhatsApp (带跳转) -->
           <a href="https://wa.me/351926078666" target="_blank" class="contact-social-item">
             <img src="/whatsapp-qr.jpg" alt="WhatsApp QR Code" />
             <span class="contact-social-platform">WhatsApp</span>
             <span class="contact-social-service">English Service</span>
           </a>
 
-          <!-- WeChat (使用 wechat-copy-btn class 来触发复制) -->
           <div class="contact-social-item wechat-copy-btn" data-wechat="DesmondPT">
             <img src="/wechat-qr.jpg" alt="WeChat QR Code" />
             <span class="contact-social-platform">WeChat</span>
@@ -180,13 +235,14 @@ const services = [
 
       <div class="footer-main">
         <div class="footer-brand">
-          <div class="footer-brand-name">IBERVIA</div>
-          <p>Your Local Partner in Portugal and Spain</p>
+          <img src="/logo.svg" alt="IBERVIA Logo" class="footer-brand-logo">
+          <p>Your Local Partner <br />in Portugal and Spain</p>
         </div>
 
         <div class="footer-links">
           <a href="#about">About</a>
           <a href="#services">Services</a>
+          <a href="#fleet">Fleet</a>
           <a href="#destinations">Destinations</a>
           <a href="#contact">Contact</a>
         </div>
@@ -220,9 +276,6 @@ const services = [
     </footer>
 
     <script>
-      // =========================
-      // 1. 邮箱一键复制功能
-      // =========================
       const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
 
       emailLinks.forEach(function(link) {
@@ -238,9 +291,6 @@ const services = [
         });
       });
 
-      // =========================
-      // 2. 微信一键复制功能
-      // =========================
       const wechatItem = document.getElementById('wechat-copy');
       
       if (wechatItem) {
@@ -309,11 +359,6 @@ const services = [
     text-decoration: none;
     font-size: 18px;
     letter-spacing: .04em;
-  }
-
-  .nav-cta {
-    border: 1px solid rgba(255,255,255,.65);
-    padding: 12px 20px;
   }
 
   .hero {
@@ -434,7 +479,6 @@ const services = [
     margin-bottom: 100px;
   }
 
-
   .service-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -451,11 +495,6 @@ const services = [
 
   .service-card:last-child {
     border-right: 0;
-  }
-
-  .service-card > span {
-    font-size: 11px;
-    opacity: .5;
   }
 
   .service-card h3 {
@@ -478,14 +517,105 @@ const services = [
     font-size: 12px;
   }
 
-  .destinations {
-    padding: 120px 10vw;
+ /* ==========================================
+     FLEET 车队展示板块样式 (浅色反转版)
+  ========================================== */
+  .fleet {
+    padding: 130px 10vw;
     background: #f3f0e9;
     color: #17252b;
+    border-top: 1px solid rgba(23, 37, 43, 0.1);
+  }
+
+  .fleet .section-heading h2 {
+    color: #17252b;
+  }
+
+  .fleet-banner {
+    margin-bottom: 40px;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .fleet-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    max-height: 500px;
+  }
+
+  .fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .fleet-card {
+    background: #ffffff;
+    border: 1px solid rgba(23, 37, 43, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .fleet-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(23, 37, 43, 0.3);
+    box-shadow: 0 10px 30px rgba(23, 37, 43, 0.05);
+  }
+
+  .fleet-card-img img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .fleet-card-info {
+    padding: 25px;
+  }
+
+  .fleet-card-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin: 0 0 12px 0;
+    color: #17252b;
+  }
+
+  .fleet-subtitle {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #58666a;
+    margin: 0;
+    letter-spacing: 0.02em;
+  }
+  .fleet-subtitle2 {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #58666a;
+    margin: 0;
+    letter-spacing: 0.02em;
+    font-style: italic;
+  }
+ /* ==========================================
+     DESTINATIONS (深色反转版)
+  ========================================== */
+  .destinations {
+    padding: 120px 10vw;
+    background: #17252b;
+    color: white;
   }
 
   .destinations .section-heading {
     margin-bottom: 10px;
+  }
+
+  .destinations .section-heading h2 {
+    color: white;
   }
 
   .destination-grid {
@@ -531,18 +661,13 @@ const services = [
     padding: 42px;
   }
 
-  .destination-content span {
-    font-size: 11px;
-    letter-spacing: .18em;
-    opacity: .8;
-  }
-
   .destination-content h3 {
     margin: 12px 0 18px;
     font-family: 'Playfair Display', serif;
     font-size: clamp(48px, 5vw, 76px);
     font-weight: 400;
     line-height: .95;
+    color: white;
   }
 
   .destination-content p {
@@ -553,88 +678,107 @@ const services = [
     opacity: .85;
   }
 
-  .destination-card:hover .destination-overlay {
-    background: linear-gradient(
-      180deg,
-      rgba(10, 20, 24, .02),
-      rgba(10, 20, 24, .65)
-    );
-  }
-
-  .destination-card:hover {
-    cursor: pointer;
-  }
-
-  @media (max-width: 700px) {
-    .destination-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .destination-card {
-      min-height: 420px;
-    }
-
-    .destination-content {
-      padding: 30px;
-    }
-  }
-
+/* ==========================================
+     CONTACT (强制浅色反转版)
+  ========================================== */
   .contact {
-    padding: 180px 10vw;
-    text-align: center;
-    background: #17252b;
-    color: white;
+    padding: 180px 10vw !important;
+    text-align: center !important;
+    background: #f3f0e9 !important;
+    color: #17252b !important;
   }
 
   .contact h2 {
-    font-size: clamp(55px, 7vw, 100px);
-    line-height: .95;
-    margin: 80px 0 80px; /* 把 35px 改成 80px，间距就拉开了 */
+    font-size: clamp(55px, 7vw, 100px) !important;
+    line-height: .95 !important;
+    margin: 80px 0 !important;
+    color: #17252b !important;
   }
 
-  .contact a {
-    color: white;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,.6);
-    padding-bottom: 8px;
-    font-size: 24px; /* 👈 新增这行，调整数字可以改变大小 */
-    letter-spacing: 0.05em; /* 👈 可选：稍微增加一点字母间距，看起来更高级 */
+  .contact a.contact-email {
+    color: #17252b !important;
+    text-decoration: none !important;
+    border-bottom: 1px solid rgba(23, 37, 43, 0.6) !important;
+    padding-bottom: 8px !important;
+    font-size: 24px !important;
+    letter-spacing: 0.05em !important;
+    display: inline-block !important;
   }
 
-  /* =========================
-     FOOTER
-  ========================= */
+  .contact-social {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 80px !important;
+    margin-top: 70px !important;
+  }
 
+  .contact a.contact-social-item {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+  }
+
+  .contact-social-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 8px !important;
+    cursor: pointer !important;
+    text-decoration: none !important;
+  }
+
+  .contact-social-item img {
+    width: 140px !important;
+    height: 140px !important;
+    object-fit: contain !important;
+    border-radius: 8px !important;
+  }
+
+  .contact-social-platform {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    color: #17252b !important;
+    line-height: 1 !important;
+    margin-top: 8px !important;
+  }
+
+  .contact-social-service {
+    font-size: 13px !important;
+    color: #58666a !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1 !important;
+  }
+
+/* ==========================================
+     FOOTER (Logo区保持浅色，其余主体反转为深色)
+  ========================================== */
+  
+  /* 1. 整个 footer 的默认底层设为深色 */
   footer {
-    background: #f3f0e9;
-    color: #17252b;
-    padding: 0 10vw; /* 👈 把原来的 5vw 改为 10vw，和上面正文对齐 */
+    background: #17252b !important;
+    color: white !important;
+    padding: 0 10vw;
   }
 
-  /* =========================
-     LOGO STRIP
-  ========================= */
-
-    .footer-logos {
-    padding: 40px 0;
+  /* 2. 独立将 Logo 区（第一栏）强制改为浅色背景 */
+  .footer-logos {
+    background: #f3f0e9 !important;
+    padding: 40px 10vw !important; /* 配合外层 padding 撑满全宽 */
+    margin: 0 -10vw; /* 负边距打破父级 padding，让浅色背景通栏显示 */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid #d7d2c8;
+    border-bottom: 1px solid rgba(23, 37, 43, 0.15) !important;
   }
 
   .footer-logos img {
     display: block;
     width: 100%;
-    max-width: 900px; /* 控制最大宽度，防止拉得太宽 */
+    max-width: 900px;
     height: auto;
-    mix-blend-mode: multiply;
+    mix-blend-mode: multiply; /* 保持原样以适应浅色底部的商标 */
   }
 
-  /* =========================
-     MAIN FOOTER
-  ========================= */
-
+  /* 3. Footer 主体区域深色适配 */
   .footer-main {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
@@ -644,36 +788,28 @@ const services = [
     padding: 65px 0 70px;
   }
 
-  /* =========================
-     BRAND
-  ========================= */
-
-  /* 中间品牌区域整体往右移 */
   .footer-brand {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* 👈 核心：在这里加上向右的偏移量。
-       数值越大，IBERVIA 整体就越往右走。您可以改成 50px、80px 等来调整 */
-    transform: translateX(100px); 
+    transform: translateX(100px);
   }
 
-  .footer-brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 38px;
-    letter-spacing: .04em;
+  .footer-brand-logo {
+    display: block;
+    width: 240px; /* 根据实际需要调整宽度 */
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* 这行代码能把黑色图片完美变成纯白色 */
   }
 
   .footer-brand p {
-    margin: 12px 0 0;
-    font-size: 12px;
+    font-family: 'Playfair Display', serif;
+    margin: 20px 0 0 10px; /* 最后这个 40px 就是左边距，数值越大向右移得越多 */
+    font-size: 20px;
     letter-spacing: .04em;
-    color: #58666a;
+    color: rgb(255, 255, 255) !important;
   }
-
-  /* =========================
-     LINKS
-  ========================= */
 
   .footer-links {
     display: flex;
@@ -683,7 +819,7 @@ const services = [
 
   .footer-links a,
   .footer-contact a {
-    color: #17252b;
+    color: rgba(255, 255, 255, 0.85) !important;
     text-decoration: none;
     font-size: 15px;
     line-height: 1.5;
@@ -691,28 +827,25 @@ const services = [
 
   .footer-links a:hover,
   .footer-contact a:hover {
-    text-decoration: underline;
+    color: white !important;
   }
-
-  /* =========================
-     CONTACT
-  ========================= */
 
   .footer-contact {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px; 
+    gap: 16px;
   }
 
   .footer-column-title {
-    font-size: 15px; 
+    font-size: 15px;
+    color: white !important;
   }
 
   .footer-social {
     display: flex;
-    gap: 20px; 
-    margin-top: 10px; 
+    gap: 20px;
+    margin-top: 10px;
   }
 
   .footer-social-item img {
@@ -720,231 +853,62 @@ const services = [
     height: 82px;
     object-fit: contain;
     display: block;
+    border-radius: 4px;
   }
 
   .footer-social-item {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    gap: 4px; 
+    align-items: center;
+    gap: 4px;
     text-align: center;
   }
 
   .social-platform {
     font-weight: 600;
     font-size: 13px;
-    color: #17252b;
-    line-height: 1; 
+    color: white !important;
+    line-height: 1;
   }
 
   .social-service {
     font-size: 11px;
-    color: #58666a;
+    color: rgba(255, 255, 255, 0.6) !important;
     letter-spacing: 0.02em;
-    line-height: 1; 
+    line-height: 1;
   }
-
-  /* =========================
-     BOTTOM
-  ========================= */
 
   .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 0 25px;
-    border-top: 1px solid #d7d2c8;
+    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
     font-size: 10px;
     letter-spacing: .06em;
-    color: #6d777a;
+    color: rgba(255, 255, 255, 0.5) !important;
   }
 
-  /* =========================
-     TABLET / MOBILE (已优化字号和间距)
-  ========================= */
+  /* 响应式调整 */
+  @media (max-width: 900px) {
+    .fleet-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 
   @media (max-width: 800px) {
     nav {
       display: none;
     }
-
-    .nav-cta {
-      display: none;
-    }
-
-    .hero-content {
-      margin-left: 7vw;
-      padding-top: 120px; 
-    }
-
-    h1 {
-      font-size: clamp(38px, 8vw, 48px); 
-      margin: 15px 0 20px; 
-    }
-
-    .intro h2,
-    .section-heading h2 {
-      font-size: clamp(32px, 7vw, 40px);
-    }
-
-    .contact h2 {
-      font-size: clamp(38px, 8vw, 48px);
-    }
-    
-    .eyebrow,
-    .section-label,
-    .intro-label {
-      font-size: 14px; 
-      letter-spacing: .15em;
-    }
-
-    .hero-bottom {
-      display: none; 
-    }
-
-    .intro {
-      grid-template-columns: 1fr;
-      padding: 100px 7vw;
-    }
-
-    .services {
-      padding: 100px 7vw;
-    }
-
-    .section-heading {
-      display: block;
-    }
-
     .service-grid {
       grid-template-columns: 1fr 1fr;
     }
-
-    .service-card:nth-child(2) {
-      border-right: 0;
+    .footer-brand {
+      transform: none;
     }
-
-    .contact {
-      padding: 120px 7vw;
-    }
-
-    .footer-logos {
-      padding: 35px 0;
-    }
-
-    .footer-logos img {
-      width: 100%;
-      max-width: 700px;
-    }
-
     .footer-main {
       grid-template-columns: 1fr;
       gap: 35px;
-      padding: 50px 0;
-    }
-    
-    .footer-bottom {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  }
-
-  /* =========================
-     SMALL MOBILE
-  ========================= */
-
-  @media (max-width: 500px) {
-    .service-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .service-card {
-      border-right: 0;
-      border-bottom: 1px solid rgba(255,255,255,.2);
-      margin: 0;
-    }
-
-    .footer-logos {
-      padding: 30px 0;
-    }
-
-    .footer-logos img {
-      width: 100%;
-    }
-
-    .footer-brand-name {
-      font-size: 32px;
-    }
-  }
-/* =========================
-     CONTACT 区域新增二维码样式
-  ========================= */
-  
-  /* 修复邮箱下划线样式，覆盖原来的 .contact a */
-  .contact a.contact-email {
-    color: white;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,.6);
-    padding-bottom: 8px;
-    display: inline-block;
-  }
-
-  /* 二维码外层容器 */
-  .contact-social {
-    display: flex;
-    justify-content: center;
-    gap: 80px; /* 两个二维码之间留出非常宽敞的距离 */
-    margin-top: 70px; /* 与上方的邮箱拉开距离 */
-  }
-
-  /* 消除 a 标签自带的下划线（覆盖原代码） */
-  .contact a.contact-social-item {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-
-  .contact-social-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  /* 控制 Contact 里的二维码变大 */
-  .contact-social-item img {
-    width: 140px; /* 比底部的 82px 大很多 */
-    height: 140px;
-    object-fit: contain;
-    border-radius: 8px; /* 加一点微小的圆角看起来更精致 */
-  }
-
-  .contact-social-platform {
-    font-weight: 600;
-    font-size: 15px;
-    color: white; /* 在深色背景上必须用白色文字 */
-    line-height: 1;
-    margin-top: 8px;
-  }
-
-  .contact-social-service {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7); /* 次要文字使用带透明度的白色 */
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-
-  /* 移动端适配：稍微缩小一点，防止手机屏幕塞不下 */
-  @media (max-width: 800px) {
-    .contact-social {
-      gap: 35px; /* 手机端两个二维码靠近一点 */
-      margin-top: 50px;
-    }
-    
-    .contact-social-item img {
-      width: 115px; /* 手机端稍微缩小 */
-      height: 115px;
     }
   }
 </style>
