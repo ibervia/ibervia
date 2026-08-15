@@ -70,11 +70,11 @@ const services = [
           <a href="#contact" class="hero-button">
             Work with us <span>→</span>
           </a>
-        </div>
 
-        <div class="hero-bottom">
-          <span>DMC · PORTUGAL & SPAIN</span>
-          <span>Registered Tourism Operator · RNAAT nº 710/2026</span>
+          <div class="hero-bottom">
+            <span>DMC · PORTUGAL & SPAIN</span>
+            <span>Registered Tourism Operator · RNAAT nº 710/2026</span>
+          </div>
         </div>
       </section>
 
@@ -317,17 +317,13 @@ const services = [
             });
           });
         }
-      });
 
-      // 手机端 What We Do 折叠/展开交互
-      document.addEventListener('DOMContentLoaded', function() {
+        // 手机端 What We Do 折叠/展开交互
         const serviceCards = document.querySelectorAll('[data-service-card]');
-        
         serviceCards.forEach(card => {
           const header = card.querySelector('.service-card-header');
           if (header) {
             header.addEventListener('click', () => {
-              // 仅在手机端（屏幕 <= 800px）生效折叠效果
               if (window.innerWidth <= 800) {
                 card.classList.toggle('expanded');
               }
@@ -391,11 +387,11 @@ const services = [
     letter-spacing: .04em;
   }
 
-  /* 默认隐藏汉堡按钮 */
   .menu-toggle {
     display: none;
   }
 
+  /* 首屏 Hero 流式布局（完美解决手机重叠） */
   .hero {
     min-height: 100vh;
     position: relative;
@@ -404,22 +400,22 @@ const services = [
     color: white;
     display: flex;
     align-items: center;
+    padding: 140px 5vw 60px 5vw;
   }
 
   .hero-image {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(90deg, rgba(10,20,24,.78), rgba(10,20,24,.28)),
+      linear-gradient(90deg, rgba(10,20,24,.82), rgba(10,20,24,.4)),
       url('/hero.avif') center / cover;
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
-    width: min(900px, 85vw);
-    margin-left: 14vw;
-    padding-top: 8vh;
+    width: min(900px, 100%);
+    margin-left: 9vw;
   }
 
   .eyebrow,
@@ -444,34 +440,35 @@ const services = [
   }
 
   .hero-text {
-    max-width: 100%;
-    font-size: 100%;
+    max-width: 600px;
+    font-size: 17px;
     line-height: 1.7;
     color: rgba(255,255,255,.82);
+    margin-bottom: 25px;
   }
 
   .hero-button {
     display: inline-flex;
     gap: 25px;
     align-items: center;
-    margin-top: 25px;
-    padding: 16px 23px;
+    padding: 16px 28px;
     background: #f3f0e9;
     color: #17252b;
     text-decoration: none;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
   }
 
   .hero-bottom {
-    position: absolute;
-    z-index: 2;
-    bottom: 30px;
-    left: 5vw;
-    right: 5vw;
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 11px;
     letter-spacing: .15em;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 650px;
   }
 
   .intro {
@@ -531,6 +528,12 @@ const services = [
     border-right: 0;
   }
 
+  .service-card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   .service-card h3 {
     margin: 45px 0 20px;
     min-height: 76px;
@@ -549,65 +552,6 @@ const services = [
     color: white;
     text-decoration: none;
     font-size: 12px;
-  }
-
-  /* 电脑端保持原样：正常展示全部内容 */
-  .service-card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  /* 手机端响应式折叠逻辑 */
-  @media (max-width: 800px) {
-    .service-card {
-      border-right: none !important;
-      margin-right: 0 !important;
-      border-bottom: 1px solid rgba(255,255,255,.2);
-      padding: 15px 0 !important;
-    }
-
-    .service-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .service-card h3 {
-      margin: 0 !important;
-      font-size: 22px !important;
-      min-height: auto !important;
-    }
-
-    /* 手机端默认隐藏详细内容，点击后展开 */
-    .service-card-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, padding 0.3s ease;
-      padding: 0;
-    }
-
-    .service-card.expanded .service-card-body {
-      max-height: 200px; /* 展开后的最大高度估算 */
-      padding-top: 12px;
-    }
-
-    .service-card p {
-      min-height: auto !important;
-      margin-bottom: 10px !important;
-    }
-
-    /* 手机端右侧显示加号/减号指示符 */
-    .service-toggle-icon {
-      font-size: 24px;
-      color: rgba(255,255,255,0.7);
-      transition: transform 0.3s ease;
-    }
-
-    .service-card.expanded .service-toggle-icon {
-      transform: rotate(45deg); /* "+" 转变为 "×" 或倾斜 */
-    }
   }
 
   .fleet {
@@ -1009,12 +953,30 @@ const services = [
       padding: 8px 0;
     }
 
+    /* 首屏手机端流式间距 */
+    .hero {
+      padding: 120px 6vw 50px 6vw !important;
+      align-items: flex-start !important;
+    }
+
+    .hero-content {
+      margin-left: 0 !important;
+      width: 100% !important;
+    }
+
+    .hero-bottom {
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 35px;
+    }
+
     .intro {
       grid-template-columns: 1fr !important;
       padding: 80px 5vw !important;
       gap: 30px !important;
     }
 
+    /* What We Do 手机端折叠面板样式 */
     .service-grid {
       grid-template-columns: 1fr !important;
       border-top: none !important;
@@ -1024,6 +986,47 @@ const services = [
       border-right: none !important;
       margin-right: 0 !important;
       border-bottom: 1px solid rgba(255,255,255,.2);
+      padding: 15px 0 !important;
+    }
+
+    .service-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .service-card h3 {
+      margin: 0 !important;
+      font-size: 22px !important;
+      min-height: auto !important;
+    }
+
+    .service-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0;
+    }
+
+    .service-card.expanded .service-card-body {
+      max-height: 200px;
+      padding-top: 12px;
+    }
+
+    .service-card p {
+      min-height: auto !important;
+      margin-bottom: 10px !important;
+    }
+
+    .service-toggle-icon {
+      font-size: 24px;
+      color: rgba(255,255,255,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card.expanded .service-toggle-icon {
+      transform: rotate(45deg);
     }
 
     body, html {
