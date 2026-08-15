@@ -28,19 +28,26 @@ const services = [
   </head>
 
   <body>
-    <header class="nav">
-      <a href="/" class="logo">
-        <img src="/logo.svg" alt="Ibervia" />
-      </a>
+    <header class="header">
+      <div class="logo">
+        <img src="logo.svg" alt="IBERVIA">
+      </div>
+  
+      <!-- 手机端汉堡按钮（三道杠图标） -->
+      <button class="menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-      <nav>
+      <!-- 导航链接区域 -->
+      <nav class="nav-links">
         <a href="#services">Services</a>
         <a href="#fleet">Fleet</a>
         <a href="#about">About</a>
         <a href="#destinations">Destinations</a>
         <a href="#contact">Contact</a>
       </nav>
-
     </header>
 
     <main>
@@ -106,19 +113,20 @@ const services = [
 
         <div class="service-grid">
           {services.map((service, index) => (
-            <article class="service-card">
-              <h3>{service.title}</h3>
-              <p>{service.text}</p>
-              <a href="#contact">Discover →</a>
+            <article class="service-card" data-service-card>
+              <div class="service-card-header">
+                <h3>{service.title}</h3>
+                <span class="service-toggle-icon">+</span>
+              </div>
+              <div class="service-card-body">
+                <p>{service.text}</p>
+                <a href="#contact">Discover →</a>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
-
-      <!-- ==========================================
-         新增：OUR FLEET 车队展示板块 (对应宣传册第 04 页)
-      ========================================== -->
       <section class="fleet" id="fleet">
         <div class="section-heading">
           <div>
@@ -130,14 +138,11 @@ const services = [
           </p>
         </div>
 
-        <!-- 顶部全景车队合影大图 -->
         <div class="fleet-banner">
           <img src="/fleet-group.jpg" alt="Ibervia Fleet Lineup" />
         </div>
 
-        <!-- 车型分类卡片网格 -->
         <div class="fleet-grid">
-          <!-- 卡片 1: 行政轿车 -->
           <div class="fleet-card">
             <div class="fleet-card-img">
               <img src="/fleet-executive.jpg" alt="Executive Vehicles" />
@@ -148,7 +153,6 @@ const services = [
             </div>
           </div>
 
-          <!-- 卡片 2: 商务小巴 -->
           <div class="fleet-card">
             <div class="fleet-card-img">
               <img src="/fleet-minibus.jpg" alt="Minibuses" />
@@ -159,7 +163,6 @@ const services = [
             </div>
           </div>
 
-          <!-- 卡片 3: 大型团队用车 -->
           <div class="fleet-card">
             <div class="fleet-card-img">
               <img src="/fleet-coach.jpg" alt="Group Vehicles" />
@@ -184,23 +187,17 @@ const services = [
         <div class="destination-grid">
           <a href="#contact" class="destination-card destination-portugal">
             <div class="destination-overlay"></div>
-
             <div class="destination-content">
               <h3>Portugal</h3>
-              <p>
-                Lisbon · Porto · Sintra · Douro Valley · Algarve
-              </p>
+              <p>Lisbon · Porto · Sintra · Douro Valley · Algarve</p>
             </div>
           </a>
 
           <a href="#contact" class="destination-card destination-spain">
             <div class="destination-overlay"></div>
-
             <div class="destination-content">
               <h3>Spain</h3>
-              <p>
-                Madrid · Barcelona · Seville · Granada · Malaga
-              </p>
+              <p>Madrid · Barcelona · Seville · Granada · Malaga</p>
             </div>
           </a>
         </div>
@@ -277,12 +274,10 @@ const services = [
 
     <script>
       const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-
       emailLinks.forEach(function(link) {
         link.addEventListener('click', function(event) {
           const hrefValue = this.getAttribute('href');
           const emailAddress = hrefValue.replace('mailto:', '');
-          
           navigator.clipboard.writeText(emailAddress).then(function() {
             alert('Email address copied to clipboard! \n邮箱地址已复制！');
           }).catch(function(err) {
@@ -292,11 +287,9 @@ const services = [
       });
 
       const wechatItem = document.getElementById('wechat-copy');
-      
       if (wechatItem) {
         wechatItem.addEventListener('click', function() {
           const wechatId = this.getAttribute('data-wechat');
-          
           navigator.clipboard.writeText(wechatId).then(function() {
             alert('微信号已复制，请打开微信粘贴添加');
           }).catch(function(err) {
@@ -305,6 +298,43 @@ const services = [
           });
         });
       }
+
+      // 手机端汉堡菜单交互
+      document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (toggleBtn && navLinks) {
+          toggleBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            toggleBtn.classList.toggle('open');
+          });
+
+          navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              navLinks.classList.remove('active');
+              toggleBtn.classList.remove('open');
+            });
+          });
+        }
+      });
+
+      // 手机端 What We Do 折叠/展开交互
+      document.addEventListener('DOMContentLoaded', function() {
+        const serviceCards = document.querySelectorAll('[data-service-card]');
+        
+        serviceCards.forEach(card => {
+          const header = card.querySelector('.service-card-header');
+          if (header) {
+            header.addEventListener('click', () => {
+              // 仅在手机端（屏幕 <= 800px）生效折叠效果
+              if (window.innerWidth <= 800) {
+                card.classList.toggle('expanded');
+              }
+            });
+          }
+        });
+      });
     </script>
   </body>
 </html>
@@ -312,22 +342,23 @@ const services = [
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500&display=swap');
 
-  :global(*) {
+  *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  :global(html) {
+  html {
     scroll-behavior: smooth;
   }
 
-  :global(body) {
+  body {
     margin: 0;
     background: #f3f0e9;
     color: #17252b;
     font-family: 'DM Sans', sans-serif;
   }
 
-  .nav {
+  /* 电脑端默认头部导航栏 */
+  .header {
     position: absolute;
     z-index: 10;
     top: 0;
@@ -338,7 +369,7 @@ const services = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: white;
+    background: transparent !important;
   }
 
   .logo img {
@@ -348,17 +379,21 @@ const services = [
     filter: brightness(0) invert(1);
   }
 
-  nav {
+  .nav-links {
     display: flex;
     gap: 42px;
   }
 
-  nav a,
-  .nav-cta {
+  .nav-links a {
     color: white;
     text-decoration: none;
     font-size: 18px;
     letter-spacing: .04em;
+  }
+
+  /* 默认隐藏汉堡按钮 */
+  .menu-toggle {
+    display: none;
   }
 
   .hero {
@@ -396,8 +431,7 @@ const services = [
     font-weight: 600;
   }
 
-  h1,
-  h2 {
+  h1, h2 {
     font-family: 'Playfair Display', serif;
     font-weight: 400;
   }
@@ -517,9 +551,65 @@ const services = [
     font-size: 12px;
   }
 
- /* ==========================================
-     FLEET 车队展示板块样式 (浅色反转版)
-  ========================================== */
+  /* 电脑端保持原样：正常展示全部内容 */
+  .service-card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* 手机端响应式折叠逻辑 */
+  @media (max-width: 800px) {
+    .service-card {
+      border-right: none !important;
+      margin-right: 0 !important;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+      padding: 15px 0 !important;
+    }
+
+    .service-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .service-card h3 {
+      margin: 0 !important;
+      font-size: 22px !important;
+      min-height: auto !important;
+    }
+
+    /* 手机端默认隐藏详细内容，点击后展开 */
+    .service-card-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0;
+    }
+
+    .service-card.expanded .service-card-body {
+      max-height: 200px; /* 展开后的最大高度估算 */
+      padding-top: 12px;
+    }
+
+    .service-card p {
+      min-height: auto !important;
+      margin-bottom: 10px !important;
+    }
+
+    /* 手机端右侧显示加号/减号指示符 */
+    .service-toggle-icon {
+      font-size: 24px;
+      color: rgba(255,255,255,0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card.expanded .service-toggle-icon {
+      transform: rotate(45deg); /* "+" 转变为 "×" 或倾斜 */
+    }
+  }
+
   .fleet {
     padding: 130px 10vw;
     background: #f3f0e9;
@@ -586,24 +676,18 @@ const services = [
     color: #17252b;
   }
 
-  .fleet-subtitle {
+  .fleet-subtitle, .fleet-subtitle2 {
     font-size: 13px;
     line-height: 1.6;
     color: #58666a;
     margin: 0;
     letter-spacing: 0.02em;
   }
+
   .fleet-subtitle2 {
-    font-size: 13px;
-    line-height: 1.6;
-    color: #58666a;
-    margin: 0;
-    letter-spacing: 0.02em;
     font-style: italic;
   }
- /* ==========================================
-     DESTINATIONS (深色反转版)
-  ========================================== */
+
   .destinations {
     padding: 120px 10vw;
     background: #17252b;
@@ -647,12 +731,7 @@ const services = [
   .destination-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(10, 20, 24, .08),
-      rgba(10, 20, 24, .78)
-    );
-    transition: background .4s ease;
+    background: linear-gradient(180deg, rgba(10, 20, 24, .08), rgba(10, 20, 24, .78));
   }
 
   .destination-content {
@@ -678,96 +757,82 @@ const services = [
     opacity: .85;
   }
 
-/* ==========================================
-     CONTACT (强制浅色反转版)
-  ========================================== */
   .contact {
-    padding: 180px 10vw !important;
-    text-align: center !important;
-    background: #f3f0e9 !important;
-    color: #17252b !important;
+    padding: 180px 10vw;
+    text-align: center;
+    background: #f3f0e9;
+    color: #17252b;
   }
 
   .contact h2 {
-    font-size: clamp(55px, 7vw, 100px) !important;
-    line-height: .95 !important;
-    margin: 80px 0 !important;
-    color: #17252b !important;
+    font-size: clamp(55px, 7vw, 100px);
+    line-height: .95;
+    margin: 80px 0;
+    color: #17252b;
   }
 
   .contact a.contact-email {
-    color: #17252b !important;
-    text-decoration: none !important;
-    border-bottom: 1px solid rgba(23, 37, 43, 0.6) !important;
-    padding-bottom: 8px !important;
-    font-size: 24px !important;
-    letter-spacing: 0.05em !important;
-    display: inline-block !important;
+    color: #17252b;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(23, 37, 43, 0.6);
+    padding-bottom: 8px;
+    font-size: 24px;
+    letter-spacing: 0.05em;
+    display: inline-block;
   }
 
   .contact-social {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 80px !important;
-    margin-top: 70px !important;
-  }
-
-  .contact a.contact-social-item {
-    border-bottom: none !important;
-    padding-bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    margin-top: 70px;
   }
 
   .contact-social-item {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 8px !important;
-    cursor: pointer !important;
-    text-decoration: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    text-decoration: none;
   }
 
   .contact-social-item img {
-    width: 140px !important;
-    height: 140px !important;
-    object-fit: contain !important;
-    border-radius: 8px !important;
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    border-radius: 8px;
   }
 
   .contact-social-platform {
-    font-weight: 600 !important;
-    font-size: 15px !important;
-    color: #17252b !important;
-    line-height: 1 !important;
-    margin-top: 8px !important;
+    font-weight: 600;
+    font-size: 15px;
+    color: #17252b;
+    line-height: 1;
+    margin-top: 8px;
   }
 
   .contact-social-service {
-    font-size: 13px !important;
-    color: #58666a !important;
-    letter-spacing: 0.02em !important;
-    line-height: 1 !important;
+    font-size: 13px;
+    color: #58666a;
+    letter-spacing: 0.02em;
+    line-height: 1;
   }
 
-/* ==========================================
-     FOOTER (Logo区保持浅色，其余主体反转为深色)
-  ========================================== */
-  
-  /* 1. 整个 footer 的默认底层设为深色 */
+  /* Footer 样式 */
   footer {
-    background: #17252b !important;
-    color: white !important;
-    padding: 0 10vw;
+    background: #17252b;
+    color: white;
   }
 
-  /* 2. 独立将 Logo 区（第一栏）强制改为浅色背景 */
   .footer-logos {
-    background: #f3f0e9 !important;
-    padding: 40px 10vw !important; /* 配合外层 padding 撑满全宽 */
-    margin: 0 -10vw; /* 负边距打破父级 padding，让浅色背景通栏显示 */
+    background: #f3f0e9;
+    padding: 25px 5vw;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(23, 37, 43, 0.15) !important;
+    border-bottom: 1px solid rgba(23, 37, 43, 0.15);
   }
 
   .footer-logos img {
@@ -775,17 +840,16 @@ const services = [
     width: 100%;
     max-width: 900px;
     height: auto;
-    mix-blend-mode: multiply; /* 保持原样以适应浅色底部的商标 */
+    mix-blend-mode: multiply;
   }
 
-  /* 3. Footer 主体区域深色适配 */
   .footer-main {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr;
-    gap: 70px;
+    gap: 40px;
     max-width: 1100px;
     margin: 0 auto;
-    padding: 65px 0 70px;
+    padding: 50px 5vw;
   }
 
   .footer-brand {
@@ -797,83 +861,61 @@ const services = [
 
   .footer-brand-logo {
     display: block;
-    width: 240px; /* 根据实际需要调整宽度 */
+    width: 160px;
     height: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1); /* 这行代码能把黑色图片完美变成纯白色 */
+    filter: brightness(0) invert(1);
   }
 
   .footer-brand p {
     font-family: 'Playfair Display', serif;
-    margin: 20px 0 0 10px; /* 最后这个 40px 就是左边距，数值越大向右移得越多 */
+    margin: 15px 0 0;
     font-size: 20px;
     letter-spacing: .04em;
-    color: rgb(255, 255, 255) !important;
+    color: white;
   }
 
-  .footer-links {
+  .footer-links, .footer-contact {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 14px;
   }
 
-  .footer-links a,
-  .footer-contact a {
-    color: rgba(255, 255, 255, 0.85) !important;
+  .footer-links a, .footer-contact a {
+    color: rgba(255, 255, 255, 0.85);
     text-decoration: none;
     font-size: 15px;
     line-height: 1.5;
   }
 
-  .footer-links a:hover,
-  .footer-contact a:hover {
-    color: white !important;
-  }
-
-  .footer-contact {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
   .footer-column-title {
     font-size: 15px;
-    color: white !important;
+    color: white;
   }
 
   .footer-social {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     margin-top: 10px;
   }
 
   .footer-social-item img {
-    width: 82px;
-    height: 82px;
+    width: 70px;
+    height: 70px;
     object-fit: contain;
     display: block;
-    border-radius: 4px;
-  }
-
-  .footer-social-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    text-align: center;
   }
 
   .social-platform {
     font-weight: 600;
-    font-size: 13px;
-    color: white !important;
+    font-size: 12px;
+    color: white;
     line-height: 1;
   }
 
   .social-service {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 0.02em;
     line-height: 1;
   }
@@ -882,33 +924,121 @@ const services = [
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0 25px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 20px 5vw;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
     font-size: 10px;
     letter-spacing: .06em;
-    color: rgba(255, 255, 255, 0.5) !important;
+    color: rgba(255, 255, 255, 0.5);
   }
 
-  /* 响应式调整 */
+
+  /* ==========================================
+     手机端自适应与汉堡折叠菜单（<=800px）
+  ========================================== */
   @media (max-width: 900px) {
-    .fleet-grid {
-      grid-template-columns: 1fr;
+    .fleet-grid,
+    .destination-grid {
+      grid-template-columns: 1fr !important;
     }
   }
 
   @media (max-width: 800px) {
-    nav {
-      display: none;
+    .header {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      padding: 15px 5vw !important;
+      background: #17252b !important;
+      position: relative !important;
+      width: 100%;
+      z-index: 1000;
+      flex-wrap: wrap;
     }
+
+    .menu-toggle {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 28px;
+      height: 20px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle.open span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .menu-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .menu-toggle.open span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    .nav-links {
+      display: none !important;
+      width: 100% !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 15px !important;
+      padding: 20px 0 15px !important;
+      text-align: center;
+      background: #17252b !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links.active {
+      display: flex !important;
+    }
+
+    .nav-links a {
+      color: white !important;
+      font-size: 16px !important;
+      padding: 8px 0;
+    }
+
+    .intro {
+      grid-template-columns: 1fr !important;
+      padding: 80px 5vw !important;
+      gap: 30px !important;
+    }
+
     .service-grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr !important;
+      border-top: none !important;
     }
+
+    .service-card {
+      border-right: none !important;
+      margin-right: 0 !important;
+      border-bottom: 1px solid rgba(255,255,255,.2);
+    }
+
+    body, html {
+      overflow-x: hidden !important;
+      width: 100% !important;
+    }
+
     .footer-brand {
-      transform: none;
+      transform: none !important;
     }
+    
     .footer-main {
-      grid-template-columns: 1fr;
-      gap: 35px;
+      grid-template-columns: 1fr !important;
+      gap: 35px !important;
+      padding: 40px 5vw !important;
     }
   }
 </style>
